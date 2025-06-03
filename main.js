@@ -12,7 +12,15 @@ function findWeatherInfo(e) {
     const cityName = searchInput.value.trim();
     weatherApi
       .getWeatherInfo(cityName)
-      .then((data) => display(data))
+      .then((data) => {
+        if (data.cod !== 200) {
+          alert("Şehir Bulunamadı!");
+          searchInput.value = "";
+          return;
+        } else {
+          display(data);
+        }
+      })
       .catch((error) => console.log(error));
   }
 }
